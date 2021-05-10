@@ -1,8 +1,11 @@
 package com.example.recycleview173;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,44 +18,56 @@ import com.bumptech.glide.request.RequestOptions;
 import java.util.ArrayList;
 
 public class DinasAdapter extends RecyclerView.Adapter<DinasAdapter.ListViewHolder> {
-    private ArrayList<Dinas> listDinas;
+    private Context context;
+    private ArrayList<Dinas> dinasModels;
 
-    public DinasAdapter(ArrayList<Dinas> list) {
-        this.listDinas = list;
+    public DinasAdapter(ArrayList<Dinas> dinasModels, Context context) {
+        this.context = context;
+        this.dinasModels = dinasModels;
     }
     @NonNull
     @Override
-    public ListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public DinasAdapter.ListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_dinas, parent, false);
         return new ListViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ListViewHolder holder, int position) {
-        Dinas dinas = listDinas.get(position);
         Glide.with(holder.itemView.getContext())
-                .load(dinas.getLogo())
+                .load(getDinasModels().get(position).getLogodinas())
                 .apply(new RequestOptions().override(75,75))
-                .into(holder.imgLogo);
-        holder.namaDinas.setText(dinas.getNamadinas());
-        holder.desDinas.setText(dinas.getDesdinas());
+                .into(holder.logodinas);
+        holder.namadinas.setText(getDinasModels().get(position).getNamadinas());
+        holder.desdinas.setText(getDinasModels().get(position).getDesdinas());
+        holder.details.setOnClickListener(v -> {
+            Intent moveIntent = new Intent(context ,DetailDinas.class);
+            moveIntent.putExtra("namadinas",getDinasModels().get(position).getNamadinas());
+            moveIntent.putExtra("desdinas",getDinasModels().get(position).getDesdinas());
+            moveIntent.putExtra("logodinas",getDinasModels().get(position).getLogodinas());
+            context.startActivity(moveIntent);
+        });
     }
 
     @Override
     public int getItemCount() {
-        return listDinas.size();
+        return getDinasModels().size();
     }
 
-    public class ListViewHolder extends RecyclerView.ViewHolder {
-        ImageView imgLogo;
-        TextView namaDinas;
-        TextView desDinas;
+    public ArrayList<Dinas> getDinasModels() {return dinasModels;}
+
+    public static class ListViewHolder extends RecyclerView.ViewHolder {
+        ImageView logodinas;
+        TextView namadinas;
+        TextView desdinas;
+        Button details;
 
         ListViewHolder(View itemview) {
             super(itemview);
-            imgLogo = itemview.findViewById(R.id.logo);
-            namaDinas = itemview.findViewById(R.id.namadinas);
-            desDinas = itemview.findViewById(R.id.desdinas);
+            logodinas = itemview.findViewById(R.id.logo);
+            namadinas = itemview.findViewById(R.id.namadinas);
+            desdinas = itemview.findViewById(R.id.desdinas);
+            details = itemview.findViewById(R.id.btn_detail);
         }
     }
 }
