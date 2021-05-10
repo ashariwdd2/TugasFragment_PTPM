@@ -3,7 +3,7 @@ package com.example.recycleview173;
 import java.util.ArrayList;
 
 public class DataDinas {
-    private static String [] namaDinas = {
+    private static String [] namadinas = {
             "DISDIKPORA",
             "DINKES",
             "DISPUPERKIM",
@@ -25,7 +25,7 @@ public class DataDinas {
             "DISPERPUSARSIP"
     };
 
-    private static String [] desDinas = {
+    private static String [] desdinas = {
             "Dinas yang mengurusi bagian Pendidikan, Kepemudaan dan Olahraga Kota Yogyakarta",
             "Dinas yang mengurusi bagian Kesehatan Kota Yogyakarta",
             "Dinas yang mengurusi bagian Pekerjaan Umum, Perumahan dan Kawasan Permukiman Kota Yogyakarta",
@@ -49,7 +49,7 @@ public class DataDinas {
 
     };
 
-    private static int [] logoDinas = {
+    private static int [] logodinas = {
             R.drawable.pendidikan,
             R.drawable.kesehatan,
             R.drawable.dpu,
@@ -71,14 +71,15 @@ public class DataDinas {
             R.drawable.perpustakaan
     };
 
-    static ArrayList<Dinas> getListData(){
+    public static ArrayList<Dinas> getListData(){
+        Dinas dinasModel = null;
         ArrayList<Dinas> list = new ArrayList<>();
-        for (int position = 0; position <namaDinas.length; position++){
-            Dinas dinas = new Dinas();
-            dinas.setNamadinas(namaDinas[position]);
-            dinas.setDesdinas(desDinas[position]);
-            dinas.setLogo(logoDinas[position]);
-            list.add(dinas);
+        for (int position = 0; position <namadinas.length; position++){
+            dinasModel = new Dinas();
+            dinasModel.setNamadinas(namadinas[position]);
+            dinasModel.setDesdinas(desdinas[position]);
+            dinasModel.setLogodinas(logodinas[position]);
+            list.add(dinasModel);
         }
         return list;
     }
