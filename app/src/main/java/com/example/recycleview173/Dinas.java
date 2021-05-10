@@ -3,7 +3,7 @@ package com.example.recycleview173;
 public class Dinas {
     private String namadinas;
     private String desdinas;
-    private int logo;
+    private int logodinas;
 
     public String getNamadinas() {
         return namadinas;
@@ -21,11 +21,11 @@ public class Dinas {
         this.desdinas = desdinas;
     }
 
-    public int getLogo() {
-        return logo;
+    public int getLogodinas() {
+        return logodinas;
     }
 
-    public void setLogo(int logo) {
-        this.logo = logo;
+    public void setLogodinas(int logodinas) {
+        this.logodinas = logodinas;
     }
 }
